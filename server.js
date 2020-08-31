@@ -8,20 +8,19 @@ const io = socketio(server);
 
 //Conexión 
 io.on('connection', socket => {
+    // let messages =[]
     //Para cuando alguien se conecte
     socket.on('Conected', (name) => {
         //Cada vez que un cliente se conecte, se ejecutará lo siguiente
         console.log(name + " Conected! ")
     })
 
-    socket.on('Message', (content) => {
+    socket.on('Message', (name,content) => {
         //Enviar msn a los clientes que llegue al servidor
-        // content ="Message From Server";
-        // io.emit("Messages", {content});
-        console.log("from server: ", content)
-        // console.log({avatar, name, date, content, showOptions})
-        io.emit("Messages", {content});
+        io.emit("Messages", {name,content});
     })
+
+   
 
     socket.on('Disconnected', () => {
         io.emit("Message", {server: "Server", message:"Disconnected"});
