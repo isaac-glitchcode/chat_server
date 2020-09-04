@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const app = express();
 const server = http.createServer(app);
-
+const PORT = process.env.PORT
 const socketio = require('socket.io');
 const io = socketio(server);
 
@@ -26,5 +26,5 @@ io.on('connection', socket => {
         io.emit("Message", {server: "Server", message:"Disconnected"});
     })
 });
-
-server.listen(3000, () => console.log("Server Connected!"));
+console.log("Puerto: "+PORT)
+server.listen(PORT, () => console.log("Server Connected!"));
